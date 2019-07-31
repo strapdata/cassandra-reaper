@@ -241,8 +241,8 @@ public final class ClusterResource {
     return Response.created(location).build();
   }
 
-  @Nullable // if cluster can't be found over jmx
-  private Cluster findClusterWithSeedHost(String seedHost, Optional<Integer> jmxPort) {
+  @Nullable // if cluster can't be found
+  public Cluster findClusterWithSeedHost(String seedHost, Optional<Integer> jmxPort) {
     Set<String> seedHosts = parseSeedHosts(seedHost);
     try {
       Cluster cluster = Cluster.builder()
