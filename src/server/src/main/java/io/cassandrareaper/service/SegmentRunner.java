@@ -302,7 +302,6 @@ final class SegmentRunner implements RepairStatusHandler, Runnable {
               return false;
             }
 
-
             // ~double-locking-idiom, only applies to non-incremental and distributed storage
             if (!repairUnit.getIncrementalRepair() && context.storage instanceof IDistributedStorage) {
               Map<String, String> dcByNode = getDCsByNodeForRepairSegment(coordinator, cluster, segment, keyspace);
@@ -315,6 +314,7 @@ final class SegmentRunner implements RepairStatusHandler, Runnable {
                 try {
                   Thread.sleep(SLEEP_TIME_AFTER_POSTPONE_IN_MS);
                 } catch (InterruptedException ignore) { }
+                releaseSegmentRunners();
                 return false;
               }
             }
@@ -342,7 +342,6 @@ final class SegmentRunner implements RepairStatusHandler, Runnable {
                     repairUnit.getRepairThreadCount());
 
             if (0 != repairNo) {
-              releaseSegmentRunners();
               processTriggeredSegment(segment, coordinator, repairNo);
             } else {
               LOG.info("Nothing to repair for segment {} in keyspace {}", segmentId, keyspace);
@@ -357,10 +356,11 @@ final class SegmentRunner implements RepairStatusHandler, Runnable {
 
               SEGMENT_RUNNERS.remove(segment.getId());
             }
+
+            releaseSegmentRunners();
           }
         } finally {
           LOG.debug("Exiting synchronized section with segment ID {}", segmentId);
-          releaseSegmentRunners();
         }
       }
     } catch (RuntimeException | ReaperException e) {
