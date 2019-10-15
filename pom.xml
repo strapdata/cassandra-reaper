@@ -19,7 +19,7 @@
 
     <groupId>io.cassandrareaper</groupId>
     <artifactId>cassandra-reaper-pom</artifactId>
-    <version>1.4.6</version>
+    <version>1.4.6.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Cassandra Reaper project</name>
@@ -202,6 +202,19 @@
                 </execution>
             </executions>
           </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>license-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>aggregate-third-party-report</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>aggregate-third-party-report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
         <pluginManagement>
           <plugins>
@@ -315,6 +328,11 @@
                 <artifactId>maven-dependency-plugin</artifactId>
                 <version>3.1.1</version>
             </plugin>
+              <plugin>
+                  <groupId>org.codehaus.mojo</groupId>
+                  <artifactId>license-maven-plugin</artifactId>
+                  <version>2.0.0</version>
+              </plugin>
           </plugins>
         </pluginManagement>
     </build>

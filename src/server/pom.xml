@@ -20,7 +20,7 @@
     <parent>
         <groupId>io.cassandrareaper</groupId>
         <artifactId>cassandra-reaper-pom</artifactId>
-        <version>1.4.6</version>
+        <version>1.4.6.1-SNAPSHOT</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
     <name>Cassandra Reaper server</name>
@@ -547,6 +547,22 @@
                             <arguments>
                                 <argument>run</argument>
                                 <argument>minimize</argument>
+                            </arguments>
+                        </configuration>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <!-- need to install license checker : npm i -g license-checker -->
+                        <id>exec-license-checker-run</id>
+                        <phase>generate-sources</phase>
+                        <configuration>
+                            <executable>license-checker</executable>
+                            <workingDirectory>../ui</workingDirectory>
+                            <arguments>
+                                <argument>--out</argument>
+                                <argument>target/ui-licenses.txt</argument>
                             </arguments>
                         </configuration>
                         <goals>
