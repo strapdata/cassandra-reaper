@@ -92,6 +92,9 @@ public final class ReaperApplicationConfiguration extends Configuration {
   private Map<String, Integer> jmxPorts;
 
   @JsonProperty
+  private Jmxmp jmxmp = new Jmxmp();
+
+  @JsonProperty
   private Map<String, JmxCredentials> jmxCredentials;
 
   @JsonProperty
@@ -122,11 +125,11 @@ public final class ReaperApplicationConfiguration extends Configuration {
 
   @JsonProperty
   private Integer repairThreadCount;
+
   /** If set to more than 0, defines how many days of run history should be kept. */
   @Nullable
   @JsonProperty
   private Integer purgeRecordsAfterInDays;
-
   /** If set to more than 0, defines how many runs to keep per repair unit. */
   @Nullable
   @JsonProperty
@@ -139,6 +142,14 @@ public final class ReaperApplicationConfiguration extends Configuration {
   private DataSourceFactory database;
 
   private DataSourceFactory relationalDb = new DataSourceFactory();
+
+  public Jmxmp getJmxmp() {
+    return jmxmp;
+  }
+
+  public void setJmxmp(Jmxmp jmxmp) {
+    this.jmxmp = jmxmp;
+  }
 
   public int getSegmentCount() {
     return segmentCount == null ? 0 : segmentCount;
@@ -412,6 +423,24 @@ public final class ReaperApplicationConfiguration extends Configuration {
       return password;
     }
   }
+
+  public static final class Jmxmp {
+
+    @JsonProperty
+    private Boolean ssl = false;
+
+    @JsonProperty
+    private Boolean enabled = false;
+
+    public Boolean useSsl() {
+      return ssl;
+    }
+
+    public Boolean isEnabled() {
+      return enabled;
+    }
+  }
+
 
   public static final class AutoSchedulingConfiguration {
 

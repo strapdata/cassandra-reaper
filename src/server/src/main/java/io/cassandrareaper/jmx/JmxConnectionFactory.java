@@ -18,6 +18,7 @@
 package io.cassandrareaper.jmx;
 
 import io.cassandrareaper.ReaperApplicationConfiguration.JmxCredentials;
+import io.cassandrareaper.ReaperApplicationConfiguration.Jmxmp;
 import io.cassandrareaper.ReaperException;
 import io.cassandrareaper.core.Cluster;
 import io.cassandrareaper.core.Node;
@@ -52,6 +53,7 @@ public class JmxConnectionFactory {
   private JmxCredentials jmxAuth;
   private Map<String, JmxCredentials> jmxCredentials;
   private EC2MultiRegionAddressTranslator addressTranslator;
+  private Jmxmp jmxmp;
 
   @VisibleForTesting
   public JmxConnectionFactory() {
@@ -100,7 +102,7 @@ public class JmxConnectionFactory {
 
     try {
       JmxConnectionProvider provider = new JmxConnectionProvider(
-              host, username, password, connectionTimeout, this.metricRegistry);
+              host, username, password, connectionTimeout, this.metricRegistry, this.jmxmp);
       JMX_CONNECTIONS.computeIfAbsent(host, provider::apply);
       JmxProxy proxy = JMX_CONNECTIONS.get(host);
       if (!proxy.isConnectionAlive()) {
@@ -181,6 +183,14 @@ public class JmxConnectionFactory {
     this.addressTranslator = addressTranslator;
   }
 
+  public Jmxmp getJmxmp() {
+    return jmxmp;
+  }
+
+  public void setJmxmp(Jmxmp jmxmp) {
+    this.jmxmp = jmxmp;
+  }
+
   public final HostConnectionCounters getHostConnectionCounters() {
     return hostConnectionCounters;
   }
@@ -206,18 +216,21 @@ public class JmxConnectionFactory {
     private final String password;
     private final int connectionTimeout;
     private final MetricRegistry metricRegistry;
+    private final Jmxmp jmxmp;
 
     JmxConnectionProvider(
         String host,
         String username,
         String password,
         int connectionTimeout,
-        MetricRegistry metricRegistry) {
+        MetricRegistry metricRegistry,
+        Jmxmp jmxmp) {
       this.host = host;
       this.username = username;
       this.password = password;
       this.connectionTimeout = connectionTimeout;
       this.metricRegistry = metricRegistry;
+      this.jmxmp = jmxmp;
     }
 
     @Override
@@ -225,7 +238,7 @@ public class JmxConnectionFactory {
       Preconditions.checkArgument(host.equals(this.host));
       try {
         JmxProxy proxy = JmxProxyImpl.connect(
-                host, username, password, addressTranslator, connectionTimeout, metricRegistry);
+                host, username, password, addressTranslator, connectionTimeout, metricRegistry, jmxmp);
         hostConnectionCounters.incrementSuccessfulConnections(host);
         return proxy;
       } catch (ReaperException | InterruptedException ex) {
