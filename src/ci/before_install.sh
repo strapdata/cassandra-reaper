@@ -26,6 +26,7 @@ sudo apt-get install npm > /dev/null
 pip install --user pyyaml > /dev/null
 pip install --user ccm > /dev/null
 npm install -g bower
+npm install -g license-checker
 
 if [ "${TEST_TYPE}" = "docker" ]
 then
