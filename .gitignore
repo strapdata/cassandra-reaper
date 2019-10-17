@@ -38,3 +38,4 @@ src/packaging/ssl-stores
 /src/server/nbproject/
 /src/server/src/main/docker/licenses/UI-THIRD-PARTY.txt
 /src/server/src/main/docker/licenses/aggregate-third-party-report.html
+/src/server/src/server/src/main/docker/licenses/aggregate-third-party-report.html
