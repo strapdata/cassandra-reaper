@@ -24,7 +24,7 @@ case "${TEST_TYPE}" in
         ;;
     "deploy")
         mvn --version -B
-        if [ "${TRAVIS_BRANCH}" = "master" ]
+        if [ "${TRAVIS_BRANCH}" = "strapdata-1.4.6" ]
             then
                 VERSION=$(printf 'VER\t${project.version}' | mvn help:evaluate | grep '^VER' | cut -f2)
                 DATE=$(date +"%Y%m%d")

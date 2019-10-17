@@ -1,216 +1,132 @@
-# Copyright 2014-2016 Spotify AB
-# Copyright 2016-2018 The Last Pickle Ltd
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
 sudo: required
 language: java
 addons:
-  postgresql: "9.4"
+  postgresql: '9.4'
 jdk:
-- oraclejdk8
+- openjdk8
 branches:
-  except:
-  - "/^untagged-.*$/"
-  - "/^master-snapshot.*$/"
+  only:
+  - "/^strapdata.*$/"
 env:
   global:
   - LOCAL_JMX=no
   - TEST=""
-  - secure: YEMudC4in6wjIS1km11AkSL1XbKwoWyqzx7vB3i9rdfNNEnJfTx9AdFEZM5h15rzH7raCJ/3/Y9LKXMyXB0wntyk+r6OEt79YaXOYUrlZT8/knGmEBddafEm7ZoUrpKpejVq5tzyMGpNvty4+6kD6IOIVGyltlL3K5DCd3MThoLtnk+il4BcxfJQu2FKFWXIbmuvEMUk27PQ9iDeAAiXEjlhD8YWgJN3cC+N9/w2h4hLNTWOY2WyNkgFomgOnvM5+6O+mIapplgyU5zR3MbcftRSJTWxMUAQrW8l5OWO+3q9mzC6Bqt+KC+aRElLGPp91sH23w2KJvp1Fdxo+kJRbmDlK4N05jJzhJoRlWJf59G5FZ8BtzdbpQS6TKwrZB+G9zfQURiYzLq9ySGyDfA/YOuYGEzNCGUCCILrnLZ44R9KENHGQi203NgXDwlBRP5qQHX51yHsB3WPViFhXu8TxVW7Wje/PmYPt9uTHMYtJ0yTo4rkX4YJ3mq6vPdrXLOeG+1Gp9TSlndDC+ecfx17PaT2iyLSz/UGhYo6EkRHGiYBlOheoI9B5JSd62kQM/86OIfvyOP9GnFHCCjGO+jU+iYje049WvjtIHgZEZARyBQX5pE30kLqBgNd1XbbXIMyTOa1FTqwW4R2/1dQeyb0VUuj5aaQzAzBCD48Cefe8Lc=
-  - secure: RJiIFdDUrk9p/zK1YbmOa3chnlOJGtYeLmUP/7NGHElqAT2Gf2dEZb1/4yLGKyPtRaGsb7YDP+4CwExSMdX+sdxOWSrj1ejLkRlU8bz/gM+m+0CX8ygrS8AXcFte/5gU1TQQ9Vu1UBiIoP4I4rXeVceJg7W/GA9U8Gf37v1VgbKpOfNsQ2ojjLZjVSom9htfAukECnDNpCMe97khjmk8/Tq53Dk5W/WXSyI0C8tiwWYAyItCRR2CBQ1XTRVosRthtle/09xwiuFQkCF4u8j0s2scu5hFe9zO/xa3Gm+YyxEJooYCI0SdJwfU5oqCC5ZoZpu8oss2QcNAf3jS6Dl6hIUQOlosqo//a5fez42RrBYjmfNDnVlhGdrFJkhdt3zluj20tJ+Dgec8gNOn6nY8FPAimKTo2BGTiaBI0HAKOdF1kbAWTWPjpJUAz9UvltP+x2ikOZV0n8tZ3RdrT7lsip+EG9OBbPIkFWrzk2tw5swdaDvc8AgzoTK0freOqEKx2A2VbG0bvUn2N9tflk8Glc8Fe86TfeloEWOSx5VUg+w2ubKuPBoxYE/G/5hX9x7Bm1M8r54vCVCvLGeRPhqDwx89ddWMpIHBb9jZi2zZ0GDb+0u013wz4fiEYxQETw0Uk2zKoIZVfSllVXezDEeR3KrxpUgDbYjQLz8qN9kc70c=
-  - secure: "XMbKIFr2v18e6g4777Mohi1bLxJSlu7vaC63T/9d7aV/X5oWQXDead/seJWj2yt6oGhitWR4e2imBJnXoz7nWYE+bkOrJ4UyYBESiMDN7SXo2fYK7bj7Z07hbwmsI+98+eJshFNE821bVrCmzTs6TgpU5yRMrcbxyAzi7DYOPzDPASo5K1xTLfkeUt/MbpFDTi+M/8YnHcH4UmMk095POR2AnyVT8ixAn+7mgU/v2nPgsERPdNydfSFFpiByvsyzvYGQuosdmfKvJ4fxvkPWO77KpgbJRBQ/bPgOuqFDDY8N1oA5Ndf4nGH84fVT97XjNSOCVHchJjqVg1gOm5eOH4SVi660CMy4OdD1IkDl2IMqcFCydLfCsvsknd3LN0F/QLbeV9TPUjAnlK2rKekzH9Bwa/UKSJGVaFhddzDO7h59NPxOZ05HErpWnU1Vw1IhHoGmRjpPr0jUjY/zIGaDhUoFAhq2BdqSSdTVMl4bBfudTt7N7+G7Osfq0Z7IYyOS6Z3uwIDPS9hGSUYXygYOhYVQ/BSKInJ4UgUTICxmmYtMSHzfeypteiKFhQMzv94DILj+cfUNIZQw6kkzkDCa0DluL4d4DcvIyHgGqSan3WeZd1kj6qwiJoDm2bcKRrEd9rPIVFX2vdNq1lQFQtmoY1JeNcyQPVG3CZRBm0UsjYQ="
+  - secure: V9i472cZD/xrx1g2mpsbDJZx7WVJU3HXjo/kqdV1xCL0omSRNkksDjimCE8zAKUo7bfzj6jSoQIhQ8MpmQfoGRUmCkBlx9W6+1t19AerhYrD/ZcVq12SWtzn1aCPo2G0AniqNOZ6ON8N/aTMxXbkpYwJkqtqWqqn4MrGIo+NGYKnCL+39d44WyF0jLpbycE5nj3jRAL4J2+4Ate4VcSLHv9ABW0SEgY2lZ7YVHrO+PrIfOHmYHs3yMYGq95o8HsreZcVsdfDSAccMtrx3EZ/RFeF5//EoQzcH3uo7mkHCl3bCalnrbJ9j6A2dCpYiIe0VSrovDyS9Rg3QQjUqhT2Gn3iA4Y12qZuPSjXf9LgKbCMcFnqi7UjDeZ4LQEyEiBy/OLqRYnksCQ6/j1MnLG3whNNdC2Gy98mXgD9IO1RCnz3vNfrCu3djelj2T3PnVmJ23bmdcSM2VsMqi3W7SOvMNjWPfTWF1uK8yvw+AYZgi8pUjNRuwxrM7pkNXTSdtlqIFMV5D8ZO4sc4cKAnxKpaYs6qRX8gI3biH4W7C7537I1kR244EyEv8g55HE750UJIqkJTAQ9Yv1npwyo1kGPWVy5ppVqkk4LPmHOslhmK9rJiMeAXWsqQ4VCdZ+nDI29wNFNTnNd8RHUIk2fOyXudKdApi5yJ7t7LtdSKqaHZKg=
+  - secure: Hxg9XAvk7z7GHlymSvFYINqztzcKtvRhCuaTBq+z25P68Y6tNUUoWNkdRgA0KadyLcxNkt/+g+kxVOKTqyv8rQcBj4xu7oqWgr5byZC1xx6quNoWsz3S7/NEXkpJRWsSYIeevb9RXoaFH7N7lJUywASs3TPmvp772VT6n7Tpg45924wvgnJduRxGAvk87h/McjUAnsrrskoBsVFpxw7hjZ3ooldg+/8rHC4M644jcXpIUtFJFhGgS/zNyzhk8oZZE/N7i0MLftMiXV4WSKbwE9RESjO2YePCawFJPpuBELqmTW85wq27bb2AS5BPSByalaefkh7XthcyxNv7MJ+n4RaOhTYekSES9vsm7/zzcw02EyiufeuAB4on5BbL4VYdgwN7/7JuWqshcoj//YwjDolB/fjGgZ65jVaTQunoA6Clsgihk4vsxLGCC5RS/dg7AyS+XXmz6wGb3VKgzMiWr5juJD3XxAlrmMgrC102z2GyJxjjjIieM/rjV7qLqYsVyEbK2wncRG7NTZ69E9XKhw29SSyJZNToYlgJN3MjQVypWET8sSxQvAPomC5yKbpZ9Ippei42xr/0tvndAg5Ao3Wi1WYryYCEFdJpBojbURAYlCY1HBbSbKUbRwFq/nsVoxOJotP8PpidK+1XGbTqB79lkVJ6DIojlyoAafavb9I=
 stages:
-  - Integration Tests
-  - Distributed Reaper Integration Tests
-  - Flapping Distributed Reaper Integration Tests
-  - name: Upgrade Integration Tests
-    #if: branch = master OR env(TRAVIS_TAG) IS present
-  - Docker
-  - name: Deploy
-    if: branch = master OR tag IS present
+- Integration Tests
+- Distributed Reaper Integration Tests
+- Flapping Distributed Reaper Integration Tests
+- name: Upgrade Integration Tests
+- Docker
+- name: Deploy
+  if: branch = strapdata-1.4.6 OR tag IS present
 jobs:
   fast_finish: true
   allow_failures:
   - env: TEST_TYPE=docker
-  # 4.0 builds are ignored until new ccm version is released and available in pip
-  #  when fixed, uncomment in .circleci/config.yaml too
   - env: TEST_TYPE=ccm CASSANDRA_VERSION=git:trunk GRIM_MIN=1 GRIM_MAX=1
   - env: TEST_TYPE=ccm CASSANDRA_VERSION=git:trunk GRIM_MIN=2 GRIM_MAX=2
   - env: TEST_TYPE=ccm CASSANDRA_VERSION=git:trunk GRIM_MIN=2 GRIM_MAX=4
   - env: TEST_TYPE=upgrade CASSANDRA_VERSION=git:trunk CO="-t @all_nodes_reachable"
   - env: TEST_TYPE=upgrade CASSANDRA_VERSION=git:trunk CO="-t ~@all_nodes_reachable"
   include:
-    - stage: Integration Tests
-      name: Memory, H2 and Postgresql
-      env: TEST_TYPE=ccm CASSANDRA_VERSION=2.1.20
-    - stage: Integration Tests
-      name: Cassandra 2.1.20
-      env: TEST_TYPE=ccm CASSANDRA_VERSION=2.1.20 GRIM_MIN=1 GRIM_MAX=1
-    - stage: Integration Tests
-      name: Cassandra 2.2.13
-      env: TEST_TYPE=ccm CASSANDRA_VERSION=2.2.13 GRIM_MIN=1 GRIM_MAX=1
-    - stage: Integration Tests
-      name: Cassandra 3.0.17
-      env: TEST_TYPE=ccm CASSANDRA_VERSION=3.0.17 GRIM_MIN=1 GRIM_MAX=1
-    - stage: Integration Tests
-      name: Cassandra 3.11.3
-      env: TEST_TYPE=ccm CASSANDRA_VERSION=3.11.3 GRIM_MIN=1 GRIM_MAX=1
-    - stage: Integration Tests
-      name: Cassandra 4.0
-      env: TEST_TYPE=ccm CASSANDRA_VERSION=git:trunk GRIM_MIN=1 GRIM_MAX=1
-    - stage: Distributed Reaper Integration Tests
-      name: Two Reapers on  Cassandra 2.1.20
-      env: TEST_TYPE=ccm CASSANDRA_VERSION=2.1.20 GRIM_MIN=2 GRIM_MAX=2
-    - stage: Distributed Reaper Integration Tests
-      name: Two Reapers on Cassandra 2.2.13
-      env: TEST_TYPE=ccm CASSANDRA_VERSION=2.2.13 GRIM_MIN=2 GRIM_MAX=2
-    - stage: Distributed Reaper Integration Tests
-      name: Two Reapers on Cassandra 3.0.17
-      env: TEST_TYPE=ccm CASSANDRA_VERSION=3.0.17 GRIM_MIN=2 GRIM_MAX=2
-    - stage: Distributed Reaper Integration Tests
-      name: Two Reapers on Cassandra 3.11.3
-      env: TEST_TYPE=ccm CASSANDRA_VERSION=3.11.3 GRIM_MIN=2 GRIM_MAX=2
-    - stage: Distributed Reaper Integration Tests
-      name: Two Reapers on Cassandra 4.0
-      env: TEST_TYPE=ccm CASSANDRA_VERSION=git:trunk GRIM_MIN=2 GRIM_MAX=2
-    - stage: Flapping Distributed Reaper Integration Tests
-      name: Four Flapping Reaper on Cassandra 2.1.20
-      env: TEST_TYPE=ccm CASSANDRA_VERSION=2.1.20 GRIM_MIN=2 GRIM_MAX=4
-    - stage: Flapping Distributed Reaper Integration Tests
-      name: Four Flapping Reaper on Cassandra 2.2.13
-      env: TEST_TYPE=ccm CASSANDRA_VERSION=2.2.13 GRIM_MIN=2 GRIM_MAX=4
-    - stage: Flapping Distributed Reaper Integration Tests
-      name: Four Flapping Reaper on Cassandra 3.0.17
-      env: TEST_TYPE=ccm CASSANDRA_VERSION=3.0.17 GRIM_MIN=2 GRIM_MAX=4
-    - stage: Flapping Distributed Reaper Integration Tests
-      name: Four Flapping Reaper on Cassandra 3.11.3
-      env: TEST_TYPE=ccm CASSANDRA_VERSION=3.11.3 GRIM_MIN=2 GRIM_MAX=4
-    - stage: Flapping Distributed Reaper Integration Tests
-      name: Four Flapping Reaper on Cassandra 4.0
-      env: TEST_TYPE=ccm CASSANDRA_VERSION=git:trunk GRIM_MIN=2 GRIM_MAX=4
-    - stage: Upgrade Integration Tests
-      name: Upgrading Reaper on Cassandra 2.1.20 (all_nodes_reachable)
-      env: TEST_TYPE=upgrade CASSANDRA_VERSION=2.1.20 CO="-t @all_nodes_reachable"
-    - stage: Upgrade Integration Tests
-      name: Upgrading Reaper on Cassandra 2.1.20
-      env: TEST_TYPE=upgrade CASSANDRA_VERSION=2.1.20 CO="-t ~@all_nodes_reachable"
-    - stage: Upgrade Integration Tests
-      name: Upgrading Reaper on Cassandra 2.2.13 (all_nodes_reachable)
-      env: TEST_TYPE=upgrade CASSANDRA_VERSION=2.2.13 CO="-t @all_nodes_reachable"
-    - stage: Upgrade Integration Tests
-      name: Upgrading Reaper on Cassandra 2.2.13
-      env: TEST_TYPE=upgrade CASSANDRA_VERSION=2.2.13 CO="-t ~@all_nodes_reachable"
-    - stage: Upgrade Integration Tests
-      name: Upgrading Reaper on Cassandra 3.0.17 (all_nodes_reachable)
-      env: TEST_TYPE=upgrade CASSANDRA_VERSION=3.0.17 CO="-t @all_nodes_reachable"
-    - stage: Upgrade Integration Tests
-      name: Upgrading Reaper on Cassandra 3.0.17
-      env: TEST_TYPE=upgrade CASSANDRA_VERSION=3.0.17 CO="-t ~@all_nodes_reachable"
-    - stage: Upgrade Integration Tests
-      name: Upgrading Reaper on Cassandra 3.11.3 (all_nodes_reachable)
-      env: TEST_TYPE=upgrade CASSANDRA_VERSION=3.11.3 CO="-t @all_nodes_reachable"
-    - stage: Upgrade Integration Tests
-      name: Upgrading Reaper on Cassandra 3.11.3
-      env: TEST_TYPE=upgrade CASSANDRA_VERSION=3.11.3 CO="-t ~@all_nodes_reachable"
-    - stage: Upgrade Integration Tests
-      name: Upgrading Reaper on Cassandra 4.0 (all_nodes_reachable)
-      env: TEST_TYPE=upgrade CASSANDRA_VERSION=git:trunk CO="-t @all_nodes_reachable"
-    - stage: Upgrade Integration Tests
-      name: Upgrading Reaper on Cassandra 4.0
-      env: TEST_TYPE=upgrade CASSANDRA_VERSION=git:trunk CO="-t ~@all_nodes_reachable"
-    - stage: Docker
-      env: TEST_TYPE=docker
-    - stage: Deploy
-      name: Deploy
-      env: TEST_TYPE=deploy
-      after_success: "./src/ci/after_success.sh"
-      before_deploy: "./src/ci/before_deploy.sh"
-      deploy:
-      - provider: releases
-        api_key: "$GITHUB_TOKEN"
-        file_glob: true
-        file:
-        - src/packages/cassandra-reaper-${TRAVIS_TAG}-release.tar.gz
-        - src/packages/reaper-*-1.x86_64.rpm
-        - src/packages/reaper_*_amd64.deb
-        skip_cleanup: true
-        on:
-          tags: true
-      - provider: bintray
-        file: src/ci/descriptor-rpm-beta.json
-        user: adejanovski
-        key: "$BINTRAY_API_KEY"
-        dry-run: false
-        skip_cleanup: true
-        on:
-          branch: master
-      - provider: bintray
-        file: src/ci/descriptor-deb-beta.json
-        user: adejanovski
-        key: "$BINTRAY_API_KEY"
-        dry-run: false
-        skip_cleanup: true
-        on:
-          branch: master
-      - provider: bintray
-        file: src/ci/descriptor-tarball-beta.json
-        user: adejanovski
-        key: "$BINTRAY_API_KEY"
-        dry-run: false
-        skip_cleanup: true
-        on:
-          branch: master
-      - provider: bintray
-        file: src/ci/descriptor-maven-snapshot.json
-        user: adejanovski
-        key: "$BINTRAY_API_KEY"
-        dry-run: false
-        skip_cleanup: true
-        on:
-          branch: master
-      - provider: bintray
-        file: src/ci/descriptor-rpm.json
-        user: adejanovski
-        key: "$BINTRAY_API_KEY"
-        dry-run: false
-        skip_cleanup: true
-        on:
-          tags: true
-      - provider: bintray
-        file: src/ci/descriptor-deb.json
-        user: adejanovski
-        key: "$BINTRAY_API_KEY"
-        dry-run: false
-        skip_cleanup: true
-        on:
-          tags: true
-      - provider: bintray
-        file: src/ci/descriptor-tarball.json
-        user: adejanovski
-        key: "$BINTRAY_API_KEY"
-        dry-run: false
-        skip_cleanup: true
-        on:
-          tags: true
-      - provider: bintray
-        file: src/ci/descriptor-maven.json
-        user: adejanovski
-        key: "$BINTRAY_API_KEY"
-        dry-run: false
-        skip_cleanup: true
-        on:
-          tags: true
+  - stage: Integration Tests
+    name: Memory, H2 and Postgresql
+    env: TEST_TYPE=ccm CASSANDRA_VERSION=2.1.20
+  - stage: Integration Tests
+    name: Cassandra 2.1.20
+    env: TEST_TYPE=ccm CASSANDRA_VERSION=2.1.20 GRIM_MIN=1 GRIM_MAX=1
+  - stage: Integration Tests
+    name: Cassandra 2.2.13
+    env: TEST_TYPE=ccm CASSANDRA_VERSION=2.2.13 GRIM_MIN=1 GRIM_MAX=1
+  - stage: Integration Tests
+    name: Cassandra 3.0.17
+    env: TEST_TYPE=ccm CASSANDRA_VERSION=3.0.17 GRIM_MIN=1 GRIM_MAX=1
+  - stage: Integration Tests
+    name: Cassandra 3.11.3
+    env: TEST_TYPE=ccm CASSANDRA_VERSION=3.11.3 GRIM_MIN=1 GRIM_MAX=1
+  - stage: Integration Tests
+    name: Cassandra 4.0
+    env: TEST_TYPE=ccm CASSANDRA_VERSION=git:trunk GRIM_MIN=1 GRIM_MAX=1
+  - stage: Distributed Reaper Integration Tests
+    name: Two Reapers on  Cassandra 2.1.20
+    env: TEST_TYPE=ccm CASSANDRA_VERSION=2.1.20 GRIM_MIN=2 GRIM_MAX=2
+  - stage: Distributed Reaper Integration Tests
+    name: Two Reapers on Cassandra 2.2.13
+    env: TEST_TYPE=ccm CASSANDRA_VERSION=2.2.13 GRIM_MIN=2 GRIM_MAX=2
+  - stage: Distributed Reaper Integration Tests
+    name: Two Reapers on Cassandra 3.0.17
+    env: TEST_TYPE=ccm CASSANDRA_VERSION=3.0.17 GRIM_MIN=2 GRIM_MAX=2
+  - stage: Distributed Reaper Integration Tests
+    name: Two Reapers on Cassandra 3.11.3
+    env: TEST_TYPE=ccm CASSANDRA_VERSION=3.11.3 GRIM_MIN=2 GRIM_MAX=2
+  - stage: Distributed Reaper Integration Tests
+    name: Two Reapers on Cassandra 4.0
+    env: TEST_TYPE=ccm CASSANDRA_VERSION=git:trunk GRIM_MIN=2 GRIM_MAX=2
+  - stage: Flapping Distributed Reaper Integration Tests
+    name: Four Flapping Reaper on Cassandra 2.1.20
+    env: TEST_TYPE=ccm CASSANDRA_VERSION=2.1.20 GRIM_MIN=2 GRIM_MAX=4
+  - stage: Flapping Distributed Reaper Integration Tests
+    name: Four Flapping Reaper on Cassandra 2.2.13
+    env: TEST_TYPE=ccm CASSANDRA_VERSION=2.2.13 GRIM_MIN=2 GRIM_MAX=4
+  - stage: Flapping Distributed Reaper Integration Tests
+    name: Four Flapping Reaper on Cassandra 3.0.17
+    env: TEST_TYPE=ccm CASSANDRA_VERSION=3.0.17 GRIM_MIN=2 GRIM_MAX=4
+  - stage: Flapping Distributed Reaper Integration Tests
+    name: Four Flapping Reaper on Cassandra 3.11.3
+    env: TEST_TYPE=ccm CASSANDRA_VERSION=3.11.3 GRIM_MIN=2 GRIM_MAX=4
+  - stage: Flapping Distributed Reaper Integration Tests
+    name: Four Flapping Reaper on Cassandra 4.0
+    env: TEST_TYPE=ccm CASSANDRA_VERSION=git:trunk GRIM_MIN=2 GRIM_MAX=4
+  - stage: Upgrade Integration Tests
+    name: Upgrading Reaper on Cassandra 2.1.20 (all_nodes_reachable)
+    env: TEST_TYPE=upgrade CASSANDRA_VERSION=2.1.20 CO="-t @all_nodes_reachable"
+  - stage: Upgrade Integration Tests
+    name: Upgrading Reaper on Cassandra 2.1.20
+    env: TEST_TYPE=upgrade CASSANDRA_VERSION=2.1.20 CO="-t ~@all_nodes_reachable"
+  - stage: Upgrade Integration Tests
+    name: Upgrading Reaper on Cassandra 2.2.13 (all_nodes_reachable)
+    env: TEST_TYPE=upgrade CASSANDRA_VERSION=2.2.13 CO="-t @all_nodes_reachable"
+  - stage: Upgrade Integration Tests
+    name: Upgrading Reaper on Cassandra 2.2.13
+    env: TEST_TYPE=upgrade CASSANDRA_VERSION=2.2.13 CO="-t ~@all_nodes_reachable"
+  - stage: Upgrade Integration Tests
+    name: Upgrading Reaper on Cassandra 3.0.17 (all_nodes_reachable)
+    env: TEST_TYPE=upgrade CASSANDRA_VERSION=3.0.17 CO="-t @all_nodes_reachable"
+  - stage: Upgrade Integration Tests
+    name: Upgrading Reaper on Cassandra 3.0.17
+    env: TEST_TYPE=upgrade CASSANDRA_VERSION=3.0.17 CO="-t ~@all_nodes_reachable"
+  - stage: Upgrade Integration Tests
+    name: Upgrading Reaper on Cassandra 3.11.3 (all_nodes_reachable)
+    env: TEST_TYPE=upgrade CASSANDRA_VERSION=3.11.3 CO="-t @all_nodes_reachable"
+  - stage: Upgrade Integration Tests
+    name: Upgrading Reaper on Cassandra 3.11.3
+    env: TEST_TYPE=upgrade CASSANDRA_VERSION=3.11.3 CO="-t ~@all_nodes_reachable"
+  - stage: Upgrade Integration Tests
+    name: Upgrading Reaper on Cassandra 4.0 (all_nodes_reachable)
+    env: TEST_TYPE=upgrade CASSANDRA_VERSION=git:trunk CO="-t @all_nodes_reachable"
+  - stage: Upgrade Integration Tests
+    name: Upgrading Reaper on Cassandra 4.0
+    env: TEST_TYPE=upgrade CASSANDRA_VERSION=git:trunk CO="-t ~@all_nodes_reachable"
+  - stage: Docker
+    env: TEST_TYPE=docker
+  - stage: Deploy
+    name: Deploy
+    env: TEST_TYPE=deploy
+    before_deploy: "./src/ci/before_deploy.sh"
+    deploy:
+    - provider: releases
+      api_key:
+        secure: MFhecFMYXJRTZYYTY0zrvQyDoTUXtaODNuF/Im7pFZDbC7aWgo5s8HFmyzNpJADKwydO1RLFPpEhJGTJ/FbuTDvshc/PirzVbrVr4jK0hnNCFaYEBqOypJzoR1j5bdivmMWxaHVvKEfAr+iNs9fwEVeb3uS+JrsZspImBkDbbeuOq0SKyxl1CrE1KF3aZJWOv50zKJaGyre9dKUq9JL8Js2dNKpebYhP8tjhD7iShD344I00br9qu3ThZ3rG6LTv4c3llI0ZRhWb644iNFtz9CoKQXK30ATjh1avT1wZr6Ci+62kYAePBToagbHd5xs8S78hFkUcm7Z0/8XX8m5KJNyJl+MSh0F/vkEpBJaLSqwUPcgbEB5wqYvWDTWADY9rQ80Mv6I97kmxpYPGpRLONBxjDby2fUVGnyr+7tWhAmAXOomtMXMl6LOLHCp0gNFMO2Twp77vTRz8e38B2dJ5vg155bGNHM7kBwP3EuiKiKFwA+RUpukVLQon7foGvikEsB1HLrNoOg44QEzrcEL6UP9tHyEFWWfwSnD3q7ybQ7bjzFC4N9F1t/NpYI2icR8X/3dRrj4GjWMCMWK75HZWjycrfd0nNLdhKyGAw2rlTmgq6Sypm3g80aq3LvGJ+Pnb7s6B2IAzNgOyhT8TKlIILZ3wQlYMrVBaVaMTmRItHWY=
+      file_glob: true
+      file:
+      - src/packages/cassandra-reaper-${TRAVIS_TAG}-release.tar.gz
+      - src/packages/reaper-*-1.x86_64.rpm
+      - src/packages/reaper_*_amd64.deb
+      skip_cleanup: true
+      on:
+        tags: true
 services:
 - postgresql
 - docker
@@ -219,10 +135,3 @@ install: "./src/ci/install.sh"
 before_script: "./src/ci/before_script.sh"
 script: "./src/ci/script.sh"
 after_failure: "./src/ci/after_failure.sh"
-notifications:
-  webhooks:
-    urls:
-    - https://webhooks.gitter.im/e/00ad453df6ac8ac0d0ba
-    on_success: change
-    on_failure: always
-    on_start: never
