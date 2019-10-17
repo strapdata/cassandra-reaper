@@ -570,7 +570,7 @@
                             <workingDirectory>../ui</workingDirectory>
                             <arguments>
                                 <argument>--out</argument>
-                                <argument>target/ui-licenses.txt</argument>
+                                <argument>${project.basedir}/src/main/docker/licenses/UI-THIRD-PARTY.txt</argument>
                             </arguments>
                         </configuration>
                         <goals>

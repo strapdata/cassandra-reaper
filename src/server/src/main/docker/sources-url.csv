@@ -1,0 +1,12 @@
+ch.qos.logback;logback-1.2.3;https://github.com/qos-ch/logback/archive/v_1.2.3.zip
+com.github.jnr;jnr-posix-3.0.44;https://github.com/jnr/jnr-posix/archive/jnr-posix-3.0.44.zip
+com.rabbitmq;amqp-client-4.4.1;https://github.com/rabbitmq/rabbitmq-java-client/archive/v4.4.1.zip
+com.unboundid;unboundid-ldapsdk-4.0.4;https://github.com/pingidentity/ldapsdk/archive/4.0.4.zip
+javax.mail;javax.mail-api-1.6.1;https://github.com/javaee/javamail/archive/JAVAMAIL-1_6_1.zip
+javax.servlet;javax.servlet-api-3.1.0;https://github.com/javaee/servlet-spec/archive/3.1.0.zip
+javax.ws.rs;javax.ws.rs-api-2.0.1;https://github.com/jax-rs/api/archive/2.0.1.zip
+net.java.dev.jna;jna-4.0.0;https://github.com/java-native-access/jna/archive/4.0.zip
+org.glassfish;javax.el-3.0.0;https://github.com/javaee/el-spec/archive/javax.el-3.0.0.zip
+org.glassfish.hk2;hk2-2.5.0-b61;https://github.com/javaee/hk2/archive/2.5.0-b61.zip
+org.glassfish.jersey;project-2.25.1;https://github.com/jersey/jersey/archive/2.25.1.zip
+#org.glassfish.main.external;jmxremote_optional-repackaged-5.0;https://github.com/javaee/glassfish/archive/5.0.zip

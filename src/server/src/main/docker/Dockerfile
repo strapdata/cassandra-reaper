@@ -13,9 +13,24 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM openjdk:8-jre-alpine
+FROM debian:stretch-slim as builder
+
+ARG THIRD_PARTY_SOURCES_DIR=/etc/cassandra-reaper/third-party-sources
+
+RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates wget unzip tar && rm -rf /var/lib/apt/lists/*
+COPY download-sources.sh /
+COPY sources-url.csv /
+RUN mkdir -p ${THIRD_PARTY_SOURCES_DIR} && \
+    cd ${THIRD_PARTY_SOURCES_DIR} && \
+    cat /sources-url.csv | /download-sources.sh
+COPY licenses/UI-THIRD-PARTY.txt ${THIRD_PARTY_SOURCES_DIR}
+COPY licenses/aggregate-third-party-report.html ${THIRD_PARTY_SOURCES_DIR}/SERVER-THIRD-PARTY.html
+
+
+FROM launcher.gcr.io/google/debian9:latest
 
 ARG SHADED_JAR
+ARG THIRD_PARTY_SOURCES_DIR
 
 ENV REAPER_SEGMENT_COUNT=200 \
     REAPER_REPAIR_PARALELLISM=DATACENTER_AWARE \
@@ -68,7 +83,9 @@ ENV REAPER_SEGMENT_COUNT=200 \
     REAPER_AUTH_USER="" \
     REAPER_AUTH_PASSWORD="" \
     REAPER_SHIRO_INI="" \
-    JAVA_OPTS=""
+    JAVA_OPTS="" \
+    STRAPDATA_JMXMP_ENABLED="false" \
+    STRAPDATA_JMXMP_SSL="false"
 
 ADD cassandra-reaper.yml /etc/cassandra-reaper.yml
 ADD shiro.ini /etc/shiro.ini
@@ -77,9 +94,14 @@ ADD configure-persistence.sh /usr/local/bin/configure-persistence.sh
 ADD configure-metrics.sh /usr/local/bin/configure-metrics.sh
 ADD configure-webui-authentication.sh /usr/local/bin/configure-webui-authentication.sh
 
-RUN addgroup -S reaper && \
-    adduser -S reaper reaper && \
-    apk add --no-cache 'su-exec>=0.2' && \
+COPY --from=builder ${THIRD_PARTY_SOURCES_DIR} ${THIRD_PARTY_SOURCES_DIR}
+COPY licenses/REAPER-LICENSE.txt /etc/cassandra-reaper/
+
+RUN addgroup reaper && \
+    adduser --shell /bin/sh --disabled-login --system --ingroup reaper reaper && \
+    apt-get update && \
+    apt-get install -y --no-install-recommends openjdk-8-jre-headless && \
+    apt-get clean && \
     mkdir -p /var/lib/cassandra-reaper && \
     mkdir -p /etc/cassandra-reaper/shiro && \
     mkdir -p /var/log/cassandra-reaper && \
@@ -102,6 +124,8 @@ VOLUME /var/lib/cassandra-reaper
 VOLUME /etc/cassandra-reaper/shiro
 
 ADD ${SHADED_JAR} /usr/local/lib/cassandra-reaper.jar
+
+USER reaper
 
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 CMD ["cassandra-reaper"]

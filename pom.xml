@@ -205,6 +205,9 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>license-maven-plugin</artifactId>
+                <configuration>
+                    <outputDirectory>${project.basedir}/src/server/src/main/docker/licenses</outputDirectory>
+                </configuration>
                 <executions>
                     <execution>
                         <id>aggregate-third-party-report</id>
