@@ -19,7 +19,7 @@ set -xe
 
 sudo apt-get update
 sudo apt-get install libjna-java > /dev/null
-sudo apt-get install python-support > /dev/null
+#sudo apt-get install python-support > /dev/null
 sudo apt-get install python-pip > /dev/null
 sudo apt-get install nodejs > /dev/null
 sudo apt-get install npm > /dev/null
