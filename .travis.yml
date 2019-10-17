@@ -1,9 +1,10 @@
 sudo: required
 language: java
+dist: xenial
 addons:
   postgresql: '9.4'
 jdk:
-- openjdk8
+  - openjdk8
 branches:
   only:
   - "/^strapdata.*$/"
