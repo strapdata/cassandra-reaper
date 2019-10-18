@@ -101,7 +101,7 @@ RUN addgroup reaper && \
     adduser --shell /bin/sh --disabled-login --system --ingroup reaper reaper && \
     apt-get update && \
     apt-get install -y --no-install-recommends openjdk-8-jre-headless && \
-    apt-get clean && \
+    apt-get clean  && rm -rf /var/lib/apt/lists/* && \
     mkdir -p /var/lib/cassandra-reaper && \
     mkdir -p /etc/cassandra-reaper/shiro && \
     mkdir -p /var/log/cassandra-reaper && \
