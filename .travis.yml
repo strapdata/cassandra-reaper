@@ -109,6 +109,7 @@ services:
 - postgresql
 - docker
 before_install:
+  - echo "$NEXUS_USERNAME"
   - echo "$NEXUS_PASSWORD" | docker login --username "$NEXUS_USERNAME" docker.repo.strapdata.com --password-stdin
   - "./src/ci/before_install.sh"
 install: "./src/ci/install.sh"
