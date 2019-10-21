@@ -18,7 +18,7 @@ dist: xenial
 addons:
   postgresql: '9.4'
 jdk:
-  - openjdk8
+- openjdk8
 branches:
   only:
   - "/^strapdata.*$/"
@@ -28,6 +28,8 @@ env:
   - TEST=""
   - secure: V9i472cZD/xrx1g2mpsbDJZx7WVJU3HXjo/kqdV1xCL0omSRNkksDjimCE8zAKUo7bfzj6jSoQIhQ8MpmQfoGRUmCkBlx9W6+1t19AerhYrD/ZcVq12SWtzn1aCPo2G0AniqNOZ6ON8N/aTMxXbkpYwJkqtqWqqn4MrGIo+NGYKnCL+39d44WyF0jLpbycE5nj3jRAL4J2+4Ate4VcSLHv9ABW0SEgY2lZ7YVHrO+PrIfOHmYHs3yMYGq95o8HsreZcVsdfDSAccMtrx3EZ/RFeF5//EoQzcH3uo7mkHCl3bCalnrbJ9j6A2dCpYiIe0VSrovDyS9Rg3QQjUqhT2Gn3iA4Y12qZuPSjXf9LgKbCMcFnqi7UjDeZ4LQEyEiBy/OLqRYnksCQ6/j1MnLG3whNNdC2Gy98mXgD9IO1RCnz3vNfrCu3djelj2T3PnVmJ23bmdcSM2VsMqi3W7SOvMNjWPfTWF1uK8yvw+AYZgi8pUjNRuwxrM7pkNXTSdtlqIFMV5D8ZO4sc4cKAnxKpaYs6qRX8gI3biH4W7C7537I1kR244EyEv8g55HE750UJIqkJTAQ9Yv1npwyo1kGPWVy5ppVqkk4LPmHOslhmK9rJiMeAXWsqQ4VCdZ+nDI29wNFNTnNd8RHUIk2fOyXudKdApi5yJ7t7LtdSKqaHZKg=
   - secure: Hxg9XAvk7z7GHlymSvFYINqztzcKtvRhCuaTBq+z25P68Y6tNUUoWNkdRgA0KadyLcxNkt/+g+kxVOKTqyv8rQcBj4xu7oqWgr5byZC1xx6quNoWsz3S7/NEXkpJRWsSYIeevb9RXoaFH7N7lJUywASs3TPmvp772VT6n7Tpg45924wvgnJduRxGAvk87h/McjUAnsrrskoBsVFpxw7hjZ3ooldg+/8rHC4M644jcXpIUtFJFhGgS/zNyzhk8oZZE/N7i0MLftMiXV4WSKbwE9RESjO2YePCawFJPpuBELqmTW85wq27bb2AS5BPSByalaefkh7XthcyxNv7MJ+n4RaOhTYekSES9vsm7/zzcw02EyiufeuAB4on5BbL4VYdgwN7/7JuWqshcoj//YwjDolB/fjGgZ65jVaTQunoA6Clsgihk4vsxLGCC5RS/dg7AyS+XXmz6wGb3VKgzMiWr5juJD3XxAlrmMgrC102z2GyJxjjjIieM/rjV7qLqYsVyEbK2wncRG7NTZ69E9XKhw29SSyJZNToYlgJN3MjQVypWET8sSxQvAPomC5yKbpZ9Ippei42xr/0tvndAg5Ao3Wi1WYryYCEFdJpBojbURAYlCY1HBbSbKUbRwFq/nsVoxOJotP8PpidK+1XGbTqB79lkVJ6DIojlyoAafavb9I=
+  - secure: GElDr/4+kgTn5JtQr5GHBtBdHy1EGtSzI9SH79EGO0nXWaTMTV3rDeHPUkqtBkuZWOXf5vOozsqyrT6csbOOaUz5IZt8ufz2DHzYCNuNb7ZiB5eTgSr2A21KS9qL/vPz1GY4Y8LLNQ4RaWSGhNeK4qUIGgW8RASUhiN/D1K+laMxzj6Cvhe1dUf7fw5jkDMBG4ygiSFmbXfTFTUlYmJQGF+XfvSM1j/BKsV5qgD6jEGyWhmL1FWvNP8avvlw57so9bkY9hFFEVjZn10Y6Ofq7OtNx/XWcQtVdex08+PcMd7tCGGzx9XpXvffG3AlWTqDHSlJ45ISN4T/lYk1YLoE1BDszElCG6CrVQLwO4dq/PsMeZgrVXEpSi/3SLp0sVI45oUAjIGHoxD1gfRqwXBK4Mj9ccFjuhS6gtZEl+2Bc+llGvs13ENZJ0BB8QyKsBtTGqokdWxzPdhr4x1n0KQ9JEFX+YwUQRTqshYlKDJWdGU7IcyuwIR/ioDuLc+pdjTPEMpjFSGjbPvGs4GhqLVHNLzOW+oV9bkoH5RzCg3ViIEKV2+ts4BbBo4JZey4FkC6DY37wPeqVSBQzfuoQ8KrPWgkGo1Ahm1sZ7DhaoBfhsXVWJrmufBW30IZVj5Qz9RpkeL7LszMwquLqXicgPYKmgWSsw+nsOy7Hry3ImMHrNo=
+  - secure: go7vmAiXZDJw8KvqzyfILG3VYqQ5nfpH/OsPw4e+cThtstguYoJ6UUi0B85QWh7zLqYCr1HLzaiV5xar9eyMLMuRgxWsmVFHpCg1HiVsmuwR9+VQVm3TaxpALsyUqPb7AC2TValLS3nl7QoqFZTojIuP94EzrSDFZdVjIdZlpvI7EzYwYqngs4jqN5c8h+3gFesPf9NWmJmpBrCXFH+fPMVeTtQ0SU4vVts+HtBNNEouAWWS3+kUAKR378I58UgYGdSFJPHzNx7BadkbG4FICYb5BSx0DP4Q7BJuEJ/9xEnVaVIIeRTAWy83i9Cl8FWDlAqVPtaS+ndOlVUF82Q2pB68Mts/YSqpUab1fd0C+QWavf8zwyjEadhA7fcIX8W7y373f9sDR2CFB+yGnfLHWyVm0ntYPRudbz60Wz1TUzxQmM+mCBD4nVhYHpK58GW8lNi2GoIqTngjMJnDeYV2rXz2qTYbkyoSJPnQgQVN0T+3SCSrrt6ir0YhBqKj3UW22FNllXTM+tNEBhiwOEKGOdhS/3A/afOC2jJDYcVb5yN5GMA9rzaT+1n0kFd7ifKtxHQnBXGb7CgU2Oc/zSShSDeM4S5K3eETs0PwiNu/hH4cSItKbzIjgKRmLARYiO10B2Z+Z6rFoSHaUF5GpekfPUDcNeaS/IV24FwUE0sBdjc=
 stages:
 - Integration Tests
 - Distributed Reaper Integration Tests
@@ -95,10 +97,22 @@ jobs:
       skip_cleanup: true
       on:
         tags: true
+    - provider: script
+      script:
+        - mvn -pl src/server/ docker:build  -Ddocker.directory=src/server/src/main/docker
+        - docker tag cassandra-reaper:latest docker.repo.strapdata.com/strapdata/cassandra-reaper:latest
+        - docker push docker.repo.strapdata.com/strapdata/cassandra-reaper:latest
+        #- docker tag cassandra-reaper:latest strapdata.azurecr.io/strapdata/cassandra-reaper:${TARVIS_TAG}
+        #- docker tag cassandra-reaper:latest gcr.io/strapdata-factory/cassandra-reaper:${TARVIS_TAG}
+      skip_cleanup: true
+#      on:
+#        tags: true
 services:
 - postgresql
 - docker
-before_install: "./src/ci/before_install.sh"
+before_install:
+- "./src/ci/before_install.sh"
+- echo "${NEXUS_PASSWORD}" | docker login --username "${NEXUS_USERNAME}" --password-stdin  docker.repo.strapdata.com
 install: "./src/ci/install.sh"
 before_script: "./src/ci/before_script.sh"
 script: "./src/ci/script.sh"
