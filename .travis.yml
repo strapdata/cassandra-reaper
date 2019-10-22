@@ -26,8 +26,6 @@ env:
   global:
   - LOCAL_JMX=no
   - TEST=""
-  - secure: fnGH9XVy/IhDi05hvDRGP8E4oa2a/3UD9rZqUP4/xfXAxDWUSdFBnWckUb+Hdu7/ECY0fr0VJyg+YcPJCanObf9N1OUgLj2yovyP+X7Eg6UawtfM2xPr0uxlT+QtVbEg6aGbHbkZRMAfcmZnTnLnha9mudCkRf7qS51oQFK4lGnzvy9HmKpMLWOU/JZwQiuDpAfdSbINj9G4w8AoknvrTp8Zm7MDIk/0nM11vZ5WHUeq9vyCyxRWsUm/4QtsdswXcgy6tFPaCYtJc4WyD6Qxv1bpRhe5dK25qpjuWZkpxgloDXJu77b9U+JbWhIQbr5chfpY8RsdvKD9+DHHqXt1cYx1hRbRRL0EQUwAT4x+3lgL11vsTZ1tokPsM0g5Zi3lz8rNL8qA6U7mxWum0y7iEeWoUcQZUQsyESypfS0KEx2T9M+OxyghnhO6yM/0u13drmWH7Txw3zv5TeSnW+HbwvpIJcnhlV1g3o8znkBqpQFqMvSJ/wzqY1U7z00ITMmdxOZFmqaT0sAJ7c+ygYrD9svR+N+lFvOSBFRfkwIHBY1sdP/wSPgDW6HkYCIpgaAMSGVoFJxuk0gtluF8yKsUNhLCOpIXcrt+pc8UCWOzVUuIqS4wcZrl7YuwVFyOEOx9+INBk3LE48eFCQ4yy4hzgLTLgqhqIhE8Wivo45NHj7U=
-  - secure: hrEeSpBYPJaPSahiH51E3ssAx53Jx34TkSoVOcwoFgJJDF1b+lmfoEVPObFFZOJoglDMaU5/IDcTuG/PTiB8EaGGZV1JMc0rQz3v/4lrKE5Bxa07HJtrJ6lWcz8bdb+Z83r8lauJKtnzX1kex71oXu6z6JLa3eaFXye8YGj3wwrrOo+dfNuBuZrd2mfj/UerG63A7SBMgZEEummy8m32sTtGf2p3Akgmzt1SAyRHoiGy8WQ8s80MpswdqG1IAGU/vNe0ZZ++q48QxYSDcRJleNkgOavJ8OZoHG1CLn528jSPuEA1QPr2Kw9yBp1Ri5gbpkm+npKfZXJj2XlH1Buqz57359+cgKJPBdsYHWxPM3iUqUgnSZWgl2E2mjmQhMPM+/TwPoQkUaoljCdLZxRdqGdPBumQd/qwgrZ1/5HvZxMYKZYu0qcClI0YkTxtUIFvsiwcr4Iu12KsTsWojIqD7w/xBAW87TYqKxp83DTNw4v11n7qCNF8+i5dcgj6DyZdwCfuUgsd40c+SnQh+IDcwoSN1Sgbuwx2k9sJ0vTr2xSfb4WFkWG6zW7pYify4JRYjyBKteix/c244A1kKQDaMWExtnTd5VLlWl+hTEQqZN980vPs67IdCcB8IiQ3YzzSoJholIBQMXGKL8mNAcPX+yYzvcMY6MPPM/K7qh8OMms=
 stages:
 - Integration Tests
 - Distributed Reaper Integration Tests
@@ -103,8 +101,9 @@ jobs:
         #- docker tag cassandra-reaper:latest strapdata.azurecr.io/strapdata/cassandra-reaper:${TARVIS_TAG}
         #- docker tag cassandra-reaper:latest gcr.io/strapdata-factory/cassandra-reaper:${TARVIS_TAG}
       skip_cleanup: true
-#      on:
-#        tags: true
+      on:
+        tags: false
+        branch: strapdata-1.4.6
 services:
 - postgresql
 - docker
