@@ -48,7 +48,7 @@ then
     tar czf cassandra-reaper-${VERSION}.tar.gz cassandra-reaper-master/
     sudo mv cassandra-reaper-${VERSION}.tar.gz src/packages/
     export GIT_HASH=$(git log --pretty=format:'%h' -n 1)
-    docker login -u $DOCKER_USER -p $DOCKER_PASS
+    docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
     export REPO=strapdata/cassandra-reaper
     mvn -B -pl src/server/ docker:build -Ddocker.directory=src/server/src/main/docker
     docker tag cassandra-reaper:latest $REPO:strapdata-1.4.6
