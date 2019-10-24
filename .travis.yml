@@ -27,11 +27,11 @@ env:
   - LOCAL_JMX=no
   - TEST=""
 stages:
-- Integration Tests
-- Distributed Reaper Integration Tests
-- Flapping Distributed Reaper Integration Tests
-- name: Upgrade Integration Tests
-- Docker
+#- Integration Tests
+#- Distributed Reaper Integration Tests
+#- Flapping Distributed Reaper Integration Tests
+#- name: Upgrade Integration Tests
+#- Docker
 - name: Deploy
   if: branch = strapdata-1.4.6 OR tag IS present
 jobs:
