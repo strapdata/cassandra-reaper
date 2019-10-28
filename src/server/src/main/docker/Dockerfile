@@ -20,7 +20,8 @@ ARG THIRD_PARTY_SOURCES_DIR=/etc/cassandra-reaper/third-party-sources
 RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates wget unzip tar && rm -rf /var/lib/apt/lists/*
 COPY download-sources.sh /
 COPY sources-url.csv /
-RUN mkdir -p ${THIRD_PARTY_SOURCES_DIR} && \
+RUN chmod 777 /download-sources.sh && \
+    mkdir -p ${THIRD_PARTY_SOURCES_DIR} && \
     cd ${THIRD_PARTY_SOURCES_DIR} && \
     cat /sources-url.csv | /download-sources.sh
 COPY licenses/UI-THIRD-PARTY.txt ${THIRD_PARTY_SOURCES_DIR}
