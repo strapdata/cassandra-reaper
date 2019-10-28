@@ -83,7 +83,7 @@ then
     cd ../..
     tar czf cassandra-reaper-${TRAVIS_TAG}-release.tar.gz cassandra-reaper-${TRAVIS_TAG}/
     sudo mv cassandra-reaper-${TRAVIS_TAG}-release.tar.gz src/packages/
-    docker login -u $DOCKER_USER -p $DOCKER_PASS
+    docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
     export REPO=strapdata/cassandra-reaper
     mvn -B -pl src/server/ docker:build -Ddocker.directory=src/server/src/main/docker
     docker tag cassandra-reaper:latest $REPO:latest
