@@ -22,8 +22,8 @@ jdk:
 - openjdk8
 branches:
   only:
-  - "/^strapdata.*$/"
-  - "/^\d+\.\d+\.\d+\.\d+?$/"
+  - /^strapdata.*$/
+  - /^\d+\.\d+\.\d+\.\d+$/
 env:
   global:
   - CLOUDSDK_CORE_DISABLE_PROMPTS: 1
