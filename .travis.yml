@@ -13,9 +13,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 sudo: required
-dist: trusty
-language: java
 dist: xenial
+language: java
 addons:
   postgresql: '9.4'
 jdk:
@@ -31,17 +30,16 @@ env:
   - GCLOUD_ZONE: europe-west1-b
   - LOCAL_JMX=no
   - TEST=""
-
 cache:
   directories:
     - $HOME/google-cloud-sdk/
 
 stages:
-- Integration Tests
-- Distributed Reaper Integration Tests
-- Flapping Distributed Reaper Integration Tests
-- name: Upgrade Integration Tests
-- Docker
+#- Integration Tests
+#- Distributed Reaper Integration Tests
+#- Flapping Distributed Reaper Integration Tests
+#- name: Upgrade Integration Tests
+#- Docker
 - name: Deploy
   if: branch = strapdata-1.4.7 OR tag IS present
 jobs:
@@ -94,7 +92,7 @@ jobs:
     deploy:
     - provider: releases
       api_key:
-        secure: MFhecFMYXJRTZYYTY0zrvQyDoTUXtaODNuF/Im7pFZDbC7aWgo5s8HFmyzNpJADKwydO1RLFPpEhJGTJ/FbuTDvshc/PirzVbrVr4jK0hnNCFaYEBqOypJzoR1j5bdivmMWxaHVvKEfAr+iNs9fwEVeb3uS+JrsZspImBkDbbeuOq0SKyxl1CrE1KF3aZJWOv50zKJaGyre9dKUq9JL8Js2dNKpebYhP8tjhD7iShD344I00br9qu3ThZ3rG6LTv4c3llI0ZRhWb644iNFtz9CoKQXK30ATjh1avT1wZr6Ci+62kYAePBToagbHd5xs8S78hFkUcm7Z0/8XX8m5KJNyJl+MSh0F/vkEpBJaLSqwUPcgbEB5wqYvWDTWADY9rQ80Mv6I97kmxpYPGpRLONBxjDby2fUVGnyr+7tWhAmAXOomtMXMl6LOLHCp0gNFMO2Twp77vTRz8e38B2dJ5vg155bGNHM7kBwP3EuiKiKFwA+RUpukVLQon7foGvikEsB1HLrNoOg44QEzrcEL6UP9tHyEFWWfwSnD3q7ybQ7bjzFC4N9F1t/NpYI2icR8X/3dRrj4GjWMCMWK75HZWjycrfd0nNLdhKyGAw2rlTmgq6Sypm3g80aq3LvGJ+Pnb7s6B2IAzNgOyhT8TKlIILZ3wQlYMrVBaVaMTmRItHWY=
+        secure: PisRj7LQme5jq52aceJjlycU8MdMxoSVtWu+QjcYqiIaNCHUhPeIR6TNyCopGhUtcN+9gaTrIxwBHn/98k5y5CUt5QZ2NgxBrfhZdeLKj01mL3V63/40lL89T+udoIwxaVEmtKFvbVpL4xoAEonkrtqKu1cmfKbc7oGLOJu6C6sbEWuNcLrEQnRlbSm8BShDPCY9AyQ/EIuSgrRrBQX0aWucbvLdCEIYO2h1aDYGulRYWT0IRIDuflo/sEMxyhexPva9qwAghyZVNoPl9TUGoXiz1BueAQfKTZiuwSDLZuupB5dS9EVarN/bBDpjA5su0/0M5lBGcjBDontFXK7y6Wfo2WGAp7q4WrX08wFTp8iSh92GdFL7ipdvM+uQJNuhFGQJNtgQBroAhpriBYmXDXcJDIeVj56LNKSJOIDJxu5g8AS8J2W5r8P8FBiuudPjmilPFRhS5Qh0vmzYbL4KCJvaIVkLzTJfbyzDhmXsCLLoAubnQGw8X/fvK/GRu1iHndgr+3NwJ3KvPJwPcdppKhI+PzHZyTVADX89tYvrY+5B3iV4yUOc8DGAQysHKbv0E67dqGburHNuszzncIHJJAC88W7vmKdrU8pniW4L2ZXMIQPnYDZkWckT3Hx+gRlRUzLbjQn89QZ4eDZEHVIRwsp61KDuaE5FCfQmnOxGGg0=
       file_glob: true
       file:
       - src/packages/cassandra-reaper-${TRAVIS_TAG}-release.tar.gz
@@ -105,14 +103,13 @@ jobs:
         tags: true
     - provider: script
       script:
-        - mvn -pl src/server/ docker:build  -Ddocker.directory=src/server/src/main/docker
-        - docker tag cassandra-reaper:latest docker.repo.strapdata.com/strapdata/cassandra-reaper:latest
-        - docker tag cassandra-reaper:latest docker.repo.strapdata.com/strapdata/cassandra-reaper:${TRAVIS_TAG}
-        - docker push docker.repo.strapdata.com/strapdata/cassandra-reaper:latest
-        - docker push docker.repo.strapdata.com/strapdata/cassandra-reaper:${TRAVIS_TAG}
-        #- docker tag cassandra-reaper:latest strapdata.azurecr.io/strapdata/cassandra-reaper:${TRAVIS_TAG}
-        - docker tag cassandra-reaper:latest gcr.io/strapdata-gcp-partnership/cassandra-reaper:${TRAVIS_TAG}
-        - docker push gcr.io/strapdata-gcp-partnership/cassandra-reaper:${TRAVIS_TAG}
+      - mvn -pl src/server/ docker:build  -Ddocker.directory=src/server/src/main/docker
+      - docker tag cassandra-reaper:latest docker.repo.strapdata.com/strapdata/cassandra-reaper:latest
+      - docker tag cassandra-reaper:latest docker.repo.strapdata.com/strapdata/cassandra-reaper:${TRAVIS_TAG}
+      - docker push docker.repo.strapdata.com/strapdata/cassandra-reaper:latest
+      - docker push docker.repo.strapdata.com/strapdata/cassandra-reaper:${TRAVIS_TAG}
+      - docker tag cassandra-reaper:latest gcr.io/strapdata-gcp-partnership/cassandra-reaper:${TRAVIS_TAG}
+      - docker push gcr.io/strapdata-gcp-partnership/cassandra-reaper:${TRAVIS_TAG}
       skip_cleanup: true
       on:
         tags: true
@@ -121,16 +118,15 @@ services:
 - postgresql
 - docker
 before_install:
-  # install GCloud SDK and Authenticate docker registry to push images on gcr.io/strapdata-gcp-partnership repository
-  - if [ ! -d "$HOME/google-cloud-sdk/bin" ]; then rm -rf $HOME/google-cloud-sdk; curl https://sdk.cloud.google.com | bash; fi
-  - source /home/travis/google-cloud-sdk/path.bash.inc
-  - gcloud -v
-  - echo "$GCLOUD_SECRET_KEY" | base64 -d > gcloud-secret.json
-  - gcloud auth activate-service-account --key-file gcloud-secret.json
-  - cat gcloud-secret.json | docker login -u _json_key --password-stdin https://gcr.io
-  # authenticate docker CLI for the Strapdata registry
-  - echo "$NEXUS_PASSWORD" | docker login --username "$NEXUS_USERNAME" docker.repo.strapdata.com --password-stdin
-  - "./src/ci/before_install.sh"
+- if [ ! -d "$HOME/google-cloud-sdk/bin" ]; then rm -rf $HOME/google-cloud-sdk; curl
+  https://sdk.cloud.google.com | bash; fi
+- source /home/travis/google-cloud-sdk/path.bash.inc
+- gcloud -v
+- echo "$GCLOUD_SECRET_KEY" | base64 -d > gcloud-secret.json
+- gcloud auth activate-service-account --key-file gcloud-secret.json
+- cat gcloud-secret.json | docker login -u _json_key --password-stdin https://gcr.io
+- echo "$NEXUS_PASSWORD" | docker login --username "$NEXUS_USERNAME" docker.repo.strapdata.com --password-stdin
+- "./src/ci/before_install.sh"
 install: "./src/ci/install.sh"
 before_script: "./src/ci/before_script.sh"
 script: "./src/ci/script.sh"
