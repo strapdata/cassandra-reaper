@@ -19,13 +19,14 @@ set -xe
 
 sudo apt-get update
 sudo apt-get install libjna-java > /dev/null
-sudo apt-get install python-support > /dev/null
+#sudo apt-get install python-support > /dev/null
 sudo apt-get install python-pip > /dev/null
 sudo apt-get install nodejs > /dev/null
 sudo apt-get install npm > /dev/null
 pip install --user pyyaml > /dev/null
 pip install --user ccm > /dev/null
 npm install -g bower
+npm install -g license-checker
 
 if [ "${TEST_TYPE}" = "docker" ]
 then

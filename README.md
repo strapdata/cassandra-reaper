@@ -1,11 +1,10 @@
 Reaper for Apache Cassandra
 ============================
 
-[![Join the chat at https://gitter.im/thelastpickle/cassandra-reaper](https://badges.gitter.im/thelastpickle/cassandra-reaper.svg)](https://gitter.im/thelastpickle/cassandra-reaper?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Build Status](https://travis-ci.org/strapdata/cassandra-reaper.svg?branch=strapdata-1.4.7)](https://travis-ci.org/strapdata/cassandra-reaper/branches)
 
-[![Build Status](https://travis-ci.org/thelastpickle/cassandra-reaper.svg?branch=master)](https://travis-ci.org/thelastpickle/cassandra-reaper/branches)
-
-*Note: This repo is a fork from the original Reaper project, created by the awesome folks at Spotify.  The WebUI has been merged in with support for incremental repairs added.* 
+*Note : This repo is a fork of the thelastpickle/cassandra-reaper repository in order to add the JMXMP protocole.
+*Note: The  thelastpickle/cassandra-reaper repo is a fork from the original Reaper project, created by the awesome folks at Spotify.  The WebUI has been merged in with support for incremental repairs added.* 
 
 Reaper is a centralized, stateful, and highly configurable tool for running Apache Cassandra
 repairs against single or multi-site clusters.

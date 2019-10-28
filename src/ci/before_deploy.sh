@@ -18,7 +18,7 @@ echo "Starting Before Deploy step..."
 set -xe
 mkdir -p src/packages
 
-if [ "${TRAVIS_BRANCH}" = "master" -a ! -d "cassandra-reaper-master" ]
+if [ "${TRAVIS_BRANCH}" = "strapdata-1.4.7" -a ! -d "cassandra-reaper-master" ]
 then
     export VERSION=$(printf 'VER\t${project.version}' | mvn help:evaluate | grep '^VER' | cut -f2)
     DATE=$(date +"%Y%m%d")
@@ -48,11 +48,11 @@ then
     tar czf cassandra-reaper-${VERSION}.tar.gz cassandra-reaper-master/
     sudo mv cassandra-reaper-${VERSION}.tar.gz src/packages/
     export GIT_HASH=$(git log --pretty=format:'%h' -n 1)
-    docker login -u $DOCKER_USER -p $DOCKER_PASS
-    export REPO=thelastpickle/cassandra-reaper
+    docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
+    export REPO=strapdata/cassandra-reaper
     mvn -B -pl src/server/ docker:build -Ddocker.directory=src/server/src/main/docker
-    docker tag cassandra-reaper:latest $REPO:master
-    docker push $REPO:master
+    docker tag cassandra-reaper:latest $REPO:strapdata-1.4.7
+    docker push $REPO:strapdata-1.4.7
     docker tag cassandra-reaper:latest $REPO:$GIT_HASH
     docker push $REPO:$GIT_HASH
 fi
@@ -84,7 +84,7 @@ then
     tar czf cassandra-reaper-${TRAVIS_TAG}-release.tar.gz cassandra-reaper-${TRAVIS_TAG}/
     sudo mv cassandra-reaper-${TRAVIS_TAG}-release.tar.gz src/packages/
     docker login -u $DOCKER_USER -p $DOCKER_PASS
-    export REPO=thelastpickle/cassandra-reaper
+    export REPO=strapdata/cassandra-reaper
     mvn -B -pl src/server/ docker:build -Ddocker.directory=src/server/src/main/docker
     docker tag cassandra-reaper:latest $REPO:latest
     docker push $REPO:latest
