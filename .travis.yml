@@ -35,11 +35,11 @@ cache:
     - $HOME/google-cloud-sdk/
 
 stages:
-#- Integration Tests
-#- Distributed Reaper Integration Tests
-#- Flapping Distributed Reaper Integration Tests
-#- name: Upgrade Integration Tests
-#- Docker
+- Integration Tests
+- Distributed Reaper Integration Tests
+- Flapping Distributed Reaper Integration Tests
+- name: Upgrade Integration Tests
+- Docker
 - name: Deploy
   if: branch = strapdata-1.4.7 OR tag IS present
 jobs:
