@@ -90,17 +90,17 @@ jobs:
     env: TEST_TYPE=deploy
     before_deploy: "./src/ci/before_deploy.sh"
     deploy:
-    - provider: releases
-      api_key:
-        secure: PisRj7LQme5jq52aceJjlycU8MdMxoSVtWu+QjcYqiIaNCHUhPeIR6TNyCopGhUtcN+9gaTrIxwBHn/98k5y5CUt5QZ2NgxBrfhZdeLKj01mL3V63/40lL89T+udoIwxaVEmtKFvbVpL4xoAEonkrtqKu1cmfKbc7oGLOJu6C6sbEWuNcLrEQnRlbSm8BShDPCY9AyQ/EIuSgrRrBQX0aWucbvLdCEIYO2h1aDYGulRYWT0IRIDuflo/sEMxyhexPva9qwAghyZVNoPl9TUGoXiz1BueAQfKTZiuwSDLZuupB5dS9EVarN/bBDpjA5su0/0M5lBGcjBDontFXK7y6Wfo2WGAp7q4WrX08wFTp8iSh92GdFL7ipdvM+uQJNuhFGQJNtgQBroAhpriBYmXDXcJDIeVj56LNKSJOIDJxu5g8AS8J2W5r8P8FBiuudPjmilPFRhS5Qh0vmzYbL4KCJvaIVkLzTJfbyzDhmXsCLLoAubnQGw8X/fvK/GRu1iHndgr+3NwJ3KvPJwPcdppKhI+PzHZyTVADX89tYvrY+5B3iV4yUOc8DGAQysHKbv0E67dqGburHNuszzncIHJJAC88W7vmKdrU8pniW4L2ZXMIQPnYDZkWckT3Hx+gRlRUzLbjQn89QZ4eDZEHVIRwsp61KDuaE5FCfQmnOxGGg0=
-      file_glob: true
-      file:
-      - src/packages/cassandra-reaper-${TRAVIS_TAG}-release.tar.gz
-      - src/packages/reaper-*-1.x86_64.rpm
-      - src/packages/reaper_*_amd64.deb
-      skip_cleanup: true
-      on:
-        tags: true
+#    - provider: releases
+      #      api_key:
+      #  secure: PisRj7LQme5jq52aceJjlycU8MdMxoSVtWu+QjcYqiIaNCHUhPeIR6TNyCopGhUtcN+9gaTrIxwBHn/98k5y5CUt5QZ2NgxBrfhZdeLKj01mL3V63/40lL89T+udoIwxaVEmtKFvbVpL4xoAEonkrtqKu1cmfKbc7oGLOJu6C6sbEWuNcLrEQnRlbSm8BShDPCY9AyQ/EIuSgrRrBQX0aWucbvLdCEIYO2h1aDYGulRYWT0IRIDuflo/sEMxyhexPva9qwAghyZVNoPl9TUGoXiz1BueAQfKTZiuwSDLZuupB5dS9EVarN/bBDpjA5su0/0M5lBGcjBDontFXK7y6Wfo2WGAp7q4WrX08wFTp8iSh92GdFL7ipdvM+uQJNuhFGQJNtgQBroAhpriBYmXDXcJDIeVj56LNKSJOIDJxu5g8AS8J2W5r8P8FBiuudPjmilPFRhS5Qh0vmzYbL4KCJvaIVkLzTJfbyzDhmXsCLLoAubnQGw8X/fvK/GRu1iHndgr+3NwJ3KvPJwPcdppKhI+PzHZyTVADX89tYvrY+5B3iV4yUOc8DGAQysHKbv0E67dqGburHNuszzncIHJJAC88W7vmKdrU8pniW4L2ZXMIQPnYDZkWckT3Hx+gRlRUzLbjQn89QZ4eDZEHVIRwsp61KDuaE5FCfQmnOxGGg0=
+      #file_glob: true
+      #file:
+      #- src/packages/cassandra-reaper-${TRAVIS_TAG}-release.tar.gz
+      #- src/packages/reaper-*-1.x86_64.rpm
+      #- src/packages/reaper_*_amd64.deb
+      #skip_cleanup: true
+      #on:
+      #  tags: true
     - provider: script
       script:
       - mvn -pl src/server/ docker:build  -Ddocker.directory=src/server/src/main/docker
