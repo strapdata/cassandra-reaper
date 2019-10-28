@@ -23,6 +23,7 @@ jdk:
 branches:
   only:
   - "/^strapdata.*$/"
+  - "/^\d+\.\d+\.\d+\.\d+?$/"
 env:
   global:
   - CLOUDSDK_CORE_DISABLE_PROMPTS: 1
@@ -106,12 +107,12 @@ jobs:
       script:
         - mvn -pl src/server/ docker:build  -Ddocker.directory=src/server/src/main/docker
         - docker tag cassandra-reaper:latest docker.repo.strapdata.com/strapdata/cassandra-reaper:latest
-        - docker tag cassandra-reaper:latest docker.repo.strapdata.com/strapdata/cassandra-reaper:${TARVIS_TAG}
+        - docker tag cassandra-reaper:latest docker.repo.strapdata.com/strapdata/cassandra-reaper:${TRAVIS_TAG}
         - docker push docker.repo.strapdata.com/strapdata/cassandra-reaper:latest
-        - docker push docker.repo.strapdata.com/strapdata/cassandra-reaper:${TARVIS_TAG}
-        #- docker tag cassandra-reaper:latest strapdata.azurecr.io/strapdata/cassandra-reaper:${TARVIS_TAG}
-        - docker tag cassandra-reaper:latest gcr.io/strapdata-gcp-partnership/cassandra-reaper:${TARVIS_TAG}
-        - docker push gcr.io/strapdata-gcp-partnership/cassandra-reaper:${TARVIS_TAG}
+        - docker push docker.repo.strapdata.com/strapdata/cassandra-reaper:${TRAVIS_TAG}
+        #- docker tag cassandra-reaper:latest strapdata.azurecr.io/strapdata/cassandra-reaper:${TRAVIS_TAG}
+        - docker tag cassandra-reaper:latest gcr.io/strapdata-gcp-partnership/cassandra-reaper:${TRAVIS_TAG}
+        - docker push gcr.io/strapdata-gcp-partnership/cassandra-reaper:${TRAVIS_TAG}
       skip_cleanup: true
       on:
         tags: true
