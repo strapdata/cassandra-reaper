@@ -55,7 +55,7 @@ jmxAuth:
 
 jmxmp:
   enabled: ${STRAPDATA_JMXMP_ENABLED}
-  ssl: ${STRAPDATA_JMXMP_ENABLED}
+  ssl: ${STRAPDATA_JMXMP_SSL}
 
 logging:
   level: ${REAPER_LOGGING_ROOT_LEVEL}
