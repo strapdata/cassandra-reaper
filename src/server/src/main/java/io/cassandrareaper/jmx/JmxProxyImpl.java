@@ -1049,7 +1049,7 @@ final class JmxProxyImpl implements JmxProxy {
 
     UserPasswordCallbackHandler(String user, String password) {
       this.username = user;
-      this.password = password.toCharArray();
+      this.password = password == null ? null : password.toCharArray();
     }
 
     public void handle(javax.security.auth.callback.Callback[] callbacks)
@@ -1066,18 +1066,5 @@ final class JmxProxyImpl implements JmxProxy {
         }
       }
     }
-/*
-    private void clearPassword() {
-      if (password != null) {
-        for (int i = 0; i < password.length; i++) {
-          password[i] = 0;
-        }
-        password = null;
-      }
-    }
-
-    protected void finalize() {
-      clearPassword();
-    }*/
   }
 }
