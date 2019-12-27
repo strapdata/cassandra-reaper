@@ -1,5 +1,11 @@
 ## Change Log
 
+
+### 1.4.8 (2019/11/15 09:05 +00:00)
+- [3bffd87](https://github.com/thelastpickle/cassandra-reaper/commit/3bffd8717b6731c7264ad2f9be65764467544cff) Fix bug in UI where only three datacenters would ever be displayed even if there were more (@ossarga)
+- [e83c2be](https://github.com/thelastpickle/cassandra-reaper/commit/e83c2be560044d6cfc500cb6724f3324d8bf487d) ninja-fix: correct output when searching for cassandra-reaper installation (@michaelsembwever)
+- [f4d2d9f](https://github.com/thelastpickle/cassandra-reaper/commit/f4d2d9fbc618ae8067f2238512127d80c609457b) Avoid length `find` commands when starting reaper from a higher/top- level directory by limiting find's depth to 4 levels. (@michaelsembwever)
+
 ### 1.4.7.1 (2019/10/28 11:16 +00:00)
 - [53c1ab4](https://github.com/thelastpickle/cassandra-reaper/commit/bb393887c561ae9a17e24bed9053ff46146412a3) Report changes from strapdata-1.4.6 (Integration of JMXMP / update travis job) (@leleueri)
 
