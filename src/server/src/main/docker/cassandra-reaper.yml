@@ -54,8 +54,8 @@ jmxAuth:
   password: ${REAPER_JMX_AUTH_PASSWORD}
 
 jmxmp:
-  enabled: ${STRAPDATA_JMXMP_ENABLED}
-  ssl: ${STRAPDATA_JMXMP_SSL}
+  enabled: ${REAPER_JMXMP_ENABLED}
+  ssl: ${REAPER_JMXMP_SSL}
 
 logging:
   level: ${REAPER_LOGGING_ROOT_LEVEL}
