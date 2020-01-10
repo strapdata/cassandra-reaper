@@ -110,7 +110,7 @@ RUN addgroup reaper && \
     mkdir -p /var/lib/cassandra-reaper && \
     mkdir -p /etc/cassandra-reaper/shiro && \
     mkdir -p /var/log/cassandra-reaper && \
-    chgrp 0 \
+    chgrp reaper \
         /etc/cassandra-reaper.yml \
         /usr/local/lib/cassandra-reaper.jar \
         /usr/local/bin/entrypoint.sh \
@@ -118,7 +118,7 @@ RUN addgroup reaper && \
         /usr/local/bin/configure-webui-authentication.sh \
         /usr/local/bin/configure-metrics.sh \
         /etc/shiro.ini && \
-    chgrp -R 0 \
+    chgrp -R reaper \
         /var/lib/cassandra-reaper \
         /etc/cassandra-reaper/shiro \
         /var/log/cassandra-reaper && \
@@ -133,8 +133,6 @@ RUN addgroup reaper && \
         
 VOLUME /var/lib/cassandra-reaper
 VOLUME /etc/cassandra-reaper/shiro
-
-USER 1001
 
 USER reaper
 
