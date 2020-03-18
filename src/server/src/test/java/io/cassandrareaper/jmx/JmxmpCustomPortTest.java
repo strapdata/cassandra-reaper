@@ -19,7 +19,6 @@ package io.cassandrareaper.jmx;
 
 import io.cassandrareaper.AppContext;
 import io.cassandrareaper.ReaperApplicationConfiguration;
-import io.cassandrareaper.ReaperApplicationConfiguration.Jmxmp;
 import io.cassandrareaper.ReaperException;
 import io.cassandrareaper.core.Cluster;
 import io.cassandrareaper.core.Node;
@@ -34,7 +33,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 
-public final class JmxCustomPortTest {
+public final class JmxmpCustomPortTest {
 
   /*
    * Test that the custom JMX port is correctly used by the connection factory
@@ -57,7 +56,6 @@ public final class JmxCustomPortTest {
         };
 
     context.config = new ReaperApplicationConfiguration();
-    context.config.setJmxmp(new Jmxmp().setEnabled(true));
     context.storage = mock(CassandraStorage.class);
 
     Cluster cluster = Cluster.builder()

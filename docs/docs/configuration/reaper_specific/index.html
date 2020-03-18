@@ -530,6 +530,19 @@ To match the example above, it could be something like : <code>10.0.10.5@cluster
 
 <p><br/></p>
 
+<h3 id="jmxmp"><code>JMXMP</code></h3>
+
+<p>Type: <em>Object</em></p>
+
+<p>Optional usage of JMX over JMXMP (instead of RMI). This allow to port-forward JMX connections over a single TCP port. Because JMXMP is vulerable to a Java deserialization attack (not fixed by Oracle), access to JMX MUST be restricted and secured with TLS encryption and SASL authentication.</p>
+
+<pre><code>jmxmp:
+    enabled: true
+    ssl: true
+</code></pre>
+
+<p><br/></p>
+
 <h3 id="logging"><code>logging</code></h3>
 
 <p>Settings to configure Reaper logging.</p>
@@ -706,6 +719,34 @@ blocking in cause some thread is waiting for I/O, like calling a Cassandra clust
 <p>Default: <em>false</em></p>
 
 <p>When running multi region clusters in AWS, turn this setting to <code>true</code> in order to use the EC2MultiRegionAddressTranslator from the Datastax Java Driver. This will allow translating the public address that the nodes broadcast to the private IP address that is used to expose JMX.</p>
+
+<p><br/></p>
+
+<h3 id="addressTranslator"><code>addressTranslator</code></h3>
+
+<p>Type: <em>Object</em></p>
+
+<p>Default: <em></em></p>
+
+<p>Defines the type of address translator, usually the EC2MultiRegionAddressTranslator from the Datastax Java Driver. This will allow translating the public address that the nodes broadcast to the private IP address that is used to expose JMX.</p>
+
+<pre><code>addressTranslator:
+    type: EC2MultiRegionAddressTranslator
+</code></pre>
+
+<p><br/></p>
+
+<h3 id="jmxAddresstranslator"><code>jmxAddressTranslator</code></h3>
+
+<p>Type: <em>Object</em></p>
+
+<p>Default: <em></em></p>
+
+<p>Defines the type of address translator used for JMX connections. This will allow translating the public address that the nodes broadcast to the private IP address that is used to expose JMX.</p>
+
+<pre><code>jmxAddressTranslator:
+    type: EC2MultiRegionAddressTranslator
+</code></pre>
 
 <p><br/></p>
 
