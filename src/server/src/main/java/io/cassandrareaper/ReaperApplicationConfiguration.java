@@ -24,6 +24,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import javax.annotation.Nullable;
+import javax.validation.Valid;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
@@ -37,6 +38,7 @@ import org.apache.cassandra.repair.RepairParallelism;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.secnod.dropwizard.shiro.ShiroConfiguration;
 import systems.composable.dropwizard.cassandra.CassandraFactory;
+import systems.composable.dropwizard.cassandra.network.AddressTranslatorFactory;
 
 public final class ReaperApplicationConfiguration extends Configuration {
 
@@ -77,6 +79,9 @@ public final class ReaperApplicationConfiguration extends Configuration {
   @DefaultValue("false")
   private Boolean useAddressTranslator;
 
+  @Valid
+  private Optional<AddressTranslatorFactory> jmxAddressTranslator = Optional.empty();
+
   @JsonProperty
   @NotNull
   private Integer repairRunThreadCount;
@@ -92,6 +97,9 @@ public final class ReaperApplicationConfiguration extends Configuration {
 
   @JsonProperty
   private Map<String, Integer> jmxPorts;
+
+  @JsonProperty
+  private Jmxmp jmxmp = new Jmxmp();
 
   @JsonProperty
   private Map<String, JmxCredentials> jmxCredentials;
@@ -160,6 +168,14 @@ public final class ReaperApplicationConfiguration extends Configuration {
   private Boolean enableConcurrentMigrations;
 
   private HttpClientConfiguration httpClient = new HttpClientConfiguration();
+
+  public Jmxmp getJmxmp() {
+    return jmxmp;
+  }
+
+  public void setJmxmp(Jmxmp jmxmp) {
+    this.jmxmp = jmxmp;
+  }
 
   public int getSegmentCount() {
     return segmentCount == null ? 0 : segmentCount;
@@ -470,6 +486,16 @@ public final class ReaperApplicationConfiguration extends Configuration {
     this.httpClient = httpClient;
   }
 
+  @JsonProperty
+  public Optional<AddressTranslatorFactory> getJmxAddressTranslator() {
+    return jmxAddressTranslator;
+  }
+
+  @JsonProperty
+  public void setJmxAddressTranslator(Optional<AddressTranslatorFactory> jmxAddressTranslator) {
+    this.jmxAddressTranslator = jmxAddressTranslator;
+  }
+
   public static final class JmxCredentials {
 
     @JsonProperty
@@ -617,5 +643,22 @@ public final class ReaperApplicationConfiguration extends Configuration {
     }
 
 
+  }
+
+  public static final class Jmxmp {
+
+    @JsonProperty
+    private Boolean ssl = false;
+
+    @JsonProperty
+    private Boolean enabled = false;
+
+    public Boolean useSsl() {
+      return ssl;
+    }
+
+    public Boolean isEnabled() {
+      return enabled;
+    }
   }
 }

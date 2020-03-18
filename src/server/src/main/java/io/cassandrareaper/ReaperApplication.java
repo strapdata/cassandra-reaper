@@ -58,6 +58,7 @@ import javax.servlet.FilterRegistration;
 import com.codahale.metrics.InstrumentedScheduledExecutorService;
 import com.codahale.metrics.MetricRegistry;
 import com.codahale.metrics.Timer;
+import com.datastax.driver.core.policies.AddressTranslator;
 import com.datastax.driver.core.policies.EC2MultiRegionAddressTranslator;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.google.common.annotations.VisibleForTesting;
@@ -152,7 +153,8 @@ public final class ReaperApplication extends Application<ReaperApplicationConfig
   }
 
   @Override
-  public void run(ReaperApplicationConfiguration config, Environment environment) throws Exception {
+  public void run(ReaperApplicationConfiguration config, Environment environment)
+        throws Exception {
     // Using UTC times everywhere as default. Affects only Yoda time.
     DateTimeZone.setDefault(DateTimeZone.UTC);
     checkConfiguration(config);
@@ -160,21 +162,16 @@ public final class ReaperApplication extends Application<ReaperApplicationConfig
     addSignalHandlers(); // SIGHUP, etc.
     context.metricRegistry = environment.metrics();
     CollectorRegistry.defaultRegistry.register(new DropwizardExports(environment.metrics()));
-
     environment
         .admin()
         .addServlet("prometheusMetrics", new MetricsServlet(CollectorRegistry.defaultRegistry))
         .addMapping("/prometheusMetrics");
-
     int repairThreads = config.getRepairRunThreadCount();
     LOG.info("initializing runner thread pool with {} threads", repairThreads);
-
     tryInitializeStorage(config, environment);
-
     if (context.jmxConnectionFactory == null) {
       LOG.info("no JMX connection factory given in context, creating default");
       context.jmxConnectionFactory = new JmxConnectionFactory(context);
-
       // read jmx host/port mapping from config and provide to jmx con.factory
       Map<String, Integer> jmxPorts = config.getJmxPorts();
       if (jmxPorts != null) {
@@ -184,14 +181,22 @@ public final class ReaperApplication extends Application<ReaperApplicationConfig
       if (config.useAddressTranslator()) {
         context.jmxConnectionFactory.setAddressTranslator(new EC2MultiRegionAddressTranslator());
       }
+      if (config.getJmxAddressTranslator().isPresent()) {
+        AddressTranslator addressTranslator = config.getJmxAddressTranslator().get().build();
+        context.jmxConnectionFactory.setAddressTranslator(addressTranslator);
+      }
     }
-
+    if (config.getJmxmp() != null) {
+      if (config.getJmxmp().isEnabled()) {
+        LOG.info("JMXMP enabled");
+      }
+      context.jmxConnectionFactory.setJmxmp(config.getJmxmp());
+    }
     JmxCredentials jmxAuth = config.getJmxAuth();
     if (jmxAuth != null) {
       LOG.debug("using specified JMX credentials for authentication");
       context.jmxConnectionFactory.setJmxAuth(jmxAuth);
     }
-
     Map<String, JmxCredentials> jmxCredentials = config.getJmxCredentials();
     if (jmxCredentials != null) {
       LOG.debug("using specified JMX credentials per cluster for authentication");
