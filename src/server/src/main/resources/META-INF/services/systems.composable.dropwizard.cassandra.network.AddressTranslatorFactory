@@ -1,3 +1,0 @@
-io.cassandrareaper.storage.cassandra.MultiIpPerNodeAddressTranslatorFactory
-systems.composable.dropwizard.cassandra.network.EC2MultiRegionAddressTranslatorFactory
-com.strapdata.cassandra.driver.KubernetesDnsAddressTranslatorFactory

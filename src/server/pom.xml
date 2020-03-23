@@ -242,11 +242,6 @@
             <artifactId>jmxremote_optional-repackaged</artifactId>
             <version>5.0</version>
         </dependency>
-        <dependency>
-            <groupId>com.strapdata.strapkop</groupId>
-            <artifactId>driver-addons</artifactId>
-            <version>6.8.4.3</version>
-        </dependency>
         <!--test scope -->
 
         <dependency>
